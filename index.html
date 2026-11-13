@@ -1,0 +1,216 @@
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Para ti ❤️</title>
+
+<style>
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    min-height: 100vh;
+    font-family: 'Segoe UI', sans-serif;
+    background: linear-gradient(rgba(255,220,235,.65), rgba(255,220,235,.65)),
+    url("imagenes/snoopy.jpg.jpg") center/cover fixed;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 25px;
+    overflow-x: hidden;
+}
+
+.contenido {
+    background: rgba(255,255,255,.94);
+    max-width: 650px;
+    width: 100%;
+    padding: 30px;
+    border-radius: 25px;
+    text-align: center;
+    box-shadow: 0 8px 25px rgba(0,0,0,.15);
+    animation: aparecer .7s ease;
+    position: relative;
+    z-index: 2;
+}
+
+h1 {
+    color: #e65b91;
+}
+
+p {
+    color: #555;
+    font-size: 18px;
+    line-height: 1.7;
+}
+
+.imagen-mensaje {
+    width: 220px;
+    max-width: 100%;
+    max-height: 250px;
+    object-fit: contain;
+    margin: 15px auto;
+    display: block;
+    border-radius: 15px;
+}
+
+button {
+    background: #ed78a6;
+    color: white;
+    border: none;
+    padding: 13px 25px;
+    border-radius: 25px;
+    font-size: 16px;
+    cursor: pointer;
+    margin: 8px;
+}
+
+button:hover {
+    background: #d94e85;
+}
+
+.snoopy-pequeno {
+    position: fixed;
+    width: 85px;
+    z-index: 1;
+    animation: flotar 3s infinite ease-in-out;
+}
+
+.s1 { top: 5%; left: 3%; }
+.s2 { top: 8%; right: 3%; animation-delay: .5s; }
+.s3 { bottom: 5%; left: 4%; animation-delay: 1s; }
+.s4 { bottom: 5%; right: 4%; animation-delay: 1.5s; }
+
+@keyframes flotar {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-15px); }
+}
+
+@keyframes aparecer {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+@media(max-width: 600px) {
+    .contenido { padding: 22px 16px; }
+    .snoopy-pequeno { width: 55px; }
+    p { font-size: 16px; }
+}
+</style>
+</head>
+
+<body>
+
+<img src="imagenes/snoopy1.jpg.jpg" class="snoopy-pequeno s1" alt="Snoopy">
+<img src="imagenes/snoopy2.jpg.jpg" class="snoopy-pequeno s2" alt="Snoopy">
+<img src="imagenes/snoopy3.jpg.jpg" class="snoopy-pequeno s3" alt="Snoopy">
+<img src="imagenes/snoopy5.jpg.jpg" class="snoopy-pequeno s4" alt="Snoopy">
+
+<div class="contenido" id="contenido"></div>
+
+<script>
+const mensajes = [
+{
+    titulo: "Nos conocemos mucho",
+    imagen: "imagenes/mensaje1.jpg.jpg",
+    texto: "Ya nos hemos conocido durante bastante tiempo sabemos qué cosas nos gustan cuáles nos disgustan nuestras maneras de ser nuestras virtudes y también nuestros defectos y aun con todo eso seguimos teniendo mucho por descubrir el uno del otro"
+},
+{
+    titulo: "Desde el primer día",
+    imagen: "imagenes/mensaje2.jpg.jpg",
+    texto: "Desde el primer día que te vi supe que eras esa chica esa mujer con la que quería compartir mi vida contigo imaginé un futuro uno de esos que alguna vez conversamos y que todavía me gustaría construir"
+},
+{
+    titulo: "Mis errores",
+    imagen: "imagenes/mensaje3.jpg.jpg",
+    texto: "Sé que he cometido muchos errores y que por un tiempo te perdí pero esa experiencia me hizo comprender que si realmente te amaba tenía que cambiar muchas cosas de mi vida y sobre todo demostrarlo con mis acciones"
+},
+{
+    titulo: "Lo mucho que te extrañé",
+    imagen: "imagenes/mensaje4.jpg.jpg",
+    texto: "Desde los días en que volvimos a vernos supe cuánto te había extrañado y lo enamorado que seguía de ti me encantan tus abrazos tus besos tu risa tu calor y tus chistes me gusta todo de ti y sobre todo me encanta pasar tiempo a tu lado"
+},
+{
+    titulo: "Nuestro futuro",
+    imagen: "imagenes/mensaje5.jpg.jpg",
+    texto: "Quiero que lo que vayamos construyendo poco a poco sea diferente y mucho más bonito que antes quiero demostrarte que te amo y cumplir aquellas cosas que hemos conversado salir juntos tener una buena relación con tus padres viajar casarnos y algún día formar nuestra familia incluso tener esa niña que alguna vez imaginamos"
+},
+{
+    titulo: "No quiero dejar pasar la oportunidad",
+    imagen: "imagenes/mensaje6.jpg.jpg",
+    texto: "No quiero dar por sentado el tiempo que tenemos juntos quiero aprovechar cada oportunidad para compartir contigo hacer recuerdos y vivir todas esas experiencias que tantas veces hemos imaginado"
+},
+{
+    titulo: "Hoy 13 de noviembre de 2026",
+    imagen: "imagenes/mensaje7.jpg.jpg",
+    texto: "Mi niña hoy quiero que volvamos a intentarlo como te dije quería pedirte que fueras mi novia en persona pero no quería dejar pasar este día sin expresarte lo que siento aunque sea por medio de este pequeño detalle"
+}
+];
+
+let paso = -1;
+
+function mostrarBienvenida() {
+    document.getElementById("contenido").innerHTML = `
+        <h1>Hola tú ❤️</h1>
+        <p>He preparado algo especial para ti espero que puedas leerlo con mucho cariño</p>
+        <button onclick="continuar()">Tengo curiosidad ❤️</button>
+    `;
+}
+
+function continuar() {
+    paso++;
+
+    if (paso < mensajes.length) {
+        const m = mensajes[paso];
+
+        document.getElementById("contenido").innerHTML = `
+            <h1>${m.titulo}</h1>
+            <img class="imagen-mensaje" src="${m.imagen}" alt="Snoopy">
+            <p>${m.texto}</p>
+            <button onclick="continuar()">Siguiente ❤️</button>
+        `;
+    } else {
+        mostrarPregunta();
+    }
+}
+
+function mostrarPregunta() {
+    document.getElementById("contenido").innerHTML = `
+        <h1>Mi amor 🍓</h1>
+
+        <img class="imagen-mensaje"
+             src="imagenes/pregunta.jpg.jpg"
+             alt="Una imagen especial">
+
+        <p>¿Quieres volver a intentarlo? ¿Quieres volver a ser mi pareja?</p>
+
+        <button onclick="respuestaSi()">Sí, quiero ❤️</button>
+        <button onclick="respuestaNo()">No</button>
+    `;
+}
+
+function respuestaSi() {
+    document.getElementById("contenido").innerHTML = `
+        <h1>¡Gracias, mi fresita! ❤️</h1>
+        <p>Prometo demostrarte con mis acciones lo mucho que te amo. Quiero que construyamos algo bonito, con paciencia, amor, respeto y muchas ganas de estar juntos. ❤️ Te amo muchísimo 🍓</p>
+    `;
+}
+
+function respuestaNo() {
+    document.getElementById("contenido").innerHTML = `
+        <h1>Gracias por leerme ❤️</h1>
+        <p>Está bien, mi niña. Gracias por leer todo lo que preparé para ti. Respeto lo que sientes y quiero que sepas que siempre voy a desearte lo mejor.</p>
+    `;
+}
+
+mostrarBienvenida();
+</script>
+
+</body>
+</html>
+
+
+
